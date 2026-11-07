@@ -1,0 +1,9 @@
+logs/*
+!logs/.gitkeep
+donnees/*
+!donnees/.gitkeep
+!donnees/exemple/
+.airflow/
+.venv/
+__pycache__/
+airflow.log

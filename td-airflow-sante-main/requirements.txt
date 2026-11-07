@@ -1,0 +1,6 @@
+# Bibliothèques utilisées par les DAG des TP (en plus d'Airflow)
+pandas
+pyarrow
+pandera>=0.20
+duckdb>=1.1
+requests
