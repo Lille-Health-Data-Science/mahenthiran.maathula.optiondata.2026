@@ -7,26 +7,32 @@
    qui lève ValueError si n < 100. Que voit-on dans la vue Grid ?
 """
 from datetime import datetime
-
 from airflow.sdk import dag, task
 
 
 @dag(schedule="@daily", start_date=datetime(2026, 1, 1),
      catchup=False, tags=["initiation"])
 def mon_premier_dag():
+
     @task
     def extraire() -> dict:
-        return {"nb_patients": 150}
+        return {"nb_patients": 40}
 
     @task
     def transformer(stats: dict) -> int:
         return stats["nb_patients"] * 2
 
     @task
+    def controler(n: int) -> int:
+        if n < 100:
+            raise ValueError("Nombre de lignes insuffisant")
+        return n
+
+    @task
     def charger(n: int):
         print(f"Chargement de {n} lignes")
 
-    charger(transformer(extraire()))
+    charger(controler(transformer(extraire())))
 
 
 mon_premier_dag()
